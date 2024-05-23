@@ -1,13 +1,15 @@
 import os
-import time
 
 folder = os.listdir("images")
 for item in folder:
     with open(f"images/{item}","r") as data:
-        print(time.strftime("%H:%M"))
-        if time.strftime("%H:%M"): #== "22:09":
+        try:
             last = open("last.txt","w+")
             last.write(item)
-            last.close()
-            if folder.index(item) == folder.index(open("last.txt","r").read()):
+            if folder.index(item) == last.read():
                 print(data.read())
+                last.close()
+            else:
+                last.close()
+        except Exception as err:
+            print(err)
